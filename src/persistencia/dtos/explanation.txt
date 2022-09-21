@@ -1,0 +1,1 @@
+Estoy decidiendo no usar DTOs por ahora porque no le veo el uso a darle un formato especial a la información antes del viajar al controlador.
