@@ -1,39 +1,39 @@
 import chai from "chai";
 import ProductsServices from "../src/services/productsServices.js";
 
-const servicesProducts = new ProductsServices()
+const servicesProducts = new ProductsServices();
 
-const assert = chai.assert
-const expect = chai.expect
+const assert = chai.assert;
+const expect = chai.expect;
 
-describe("testing products services functions", () => {
+const prueba = 5;
 
-    let products = ""
+describe("testing products services functions", async () => {
+  let products = await servicesProducts.getAll();
+  console.log("aqui");
+  let largo = products.length;
 
-    const getProducts = async() => {
-        products = await servicesProducts.getAll()
-    
-        describe("pruebas get products", () => {
-            it("prueba de productos cargados"), () => {
-                assert.lengthOf(products,5)
-            }
-            it("tipo de resultado"), () => {
-                assert.typeOf(products,"array")
-            }
-            it("propiedades"), () => {
-                assert.hasAllKeys(products[0],["id","nombre","codigo","thumbnail","precio","stock"])
-            }
+  it("prueba de productos cargados", () => {
+    assert.lengthOf(products, largo);
+  });
+  it("prueba", () => {
+    assert.equal(prueba, 5);
+  });
+
+  /*     describe("pruebas get products", () => {
+
+        it("tipo de resultado", () => {
+            assert.typeOf(products,"array")
         })
-    
-    }
+        it("propiedades", () => {
+            assert.hasAllKeys(products[0],["id","nombre","codigo","thumbnail","precio","stock"])
+        })
+    })
 
-    getProducts()
+    describe("pruebas POST products", () => {
 
-
-/*     describe("pruebas post products", () => {
-        
     })
     describe("pruebas delete products", () => {
         
     }) */
-})
+});

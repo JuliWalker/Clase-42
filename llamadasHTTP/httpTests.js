@@ -1,7 +1,7 @@
-import http from "http"
+/* import http from "http"
 
 
-/* GET */
+
 
 http.get('http://localhost:8080/api/productos', (res) => {
     let productos = ""
@@ -14,7 +14,7 @@ http.get('http://localhost:8080/api/productos', (res) => {
 })
 
 
-/* POST */
+
 
 const productsPOST = JSON.stringify({
     "nombre":"auriculares Noga v2","descripcion":"auriculares in-ear con cable para uso de oficina v2","codigo":"7A33595F2","thumbnail":"http://d3ugyf2ht6aenh.cloudfront.net/stores/001/170/953/products/ng-1600-ng-full1-bb5789c3161060491716408852964073-640-01-acb47fbdfc4b8f8eab16494472023268-640-0.jpg","precio":950,"stock":53
@@ -40,4 +40,4 @@ http.request(opciones,res => {
     res.on('end', () => {
         console.log(productos)
     })
-}).write(productsPOST)
+}).write(productsPOST) */
