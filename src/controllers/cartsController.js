@@ -1,0 +1,105 @@
+import ProductsServices from "../services/productsServices.js";
+import UsersServices from "../services/usersServices.js";
+import CartsServices from "../services/cartsServices.js";
+
+export default class CartsController {
+  constructor() {
+    this.serviceCarts = new CartsServices();
+    this.servicesProducts = new ProductsServices();
+    this.servicesUser = new UsersServices();
+  }
+
+  getCarts = async (req, res) => {
+    try {
+      const carritos = await this.serviceCarts.getAll();
+      carritos
+        ? res.status(200).json(carritos)
+        : res.status(404).json({ message: "No hay carritos disponibles" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+  getCartById = async (req, res) => {
+    try {
+      const carrito = await this.serviceCarts.getOne(req.params.id);
+      carrito
+        ? res.status(200).json(carrito)
+        : res
+            .status(404)
+            .json({ message: "Carrito no encontrado. id: " + req.params.id });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+  saveCart = async (req, res) => {
+    try {
+      const nuevoCarrito = await this.serviceCarts.saveNew(req.body);
+      res.status(201).json({
+        message: "Carrito creado con éxito",
+        carrito: nuevoCarrito,
+      });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+  getProductsInCart = async (req, res) => {
+    try {
+      const carrito = await this.serviceCarts.getOne(req.params.id);
+      carrito
+        ? res.status(200).json(carrito.productos)
+        : res
+            .status(404)
+            .json({ message: "Carrito no encontrado. id: " + req.params.id });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+  addProductToCart = async (req, res) => {
+    // este lo tengo que revisar, esta mal la logica de este lado.
+    try {
+      const newCart = await this.serviceCarts.addProductsToCart(
+        req.params.id,
+        req.body
+      );
+      if (!newCart) {
+        res
+          .status(404)
+          .json({ message: "Carrito no encontrado. id: " + req.params.id });
+        // res.status(404).json({ message: "La lista de productos está vacía" });
+      } else {
+        res.status(201).json({
+          message: "Productos agregados con éxito",
+          carrito: newCart,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message, line: err.line });
+    }
+  };
+
+  deleteProductInCart = async (req, res) => {
+    try {
+      // este tambien lo tengo que revisar
+      const { id, productoId } = req.params;
+      let response = await this.serviceCarts.deleteProduct(id, productoId);
+      console.log(response)
+      if (typeof response === "string") {
+        res.status(404).json({
+          message: "no pudimos eliminar el producto",
+          response,
+        });
+      } else {
+        res.status(201).json({
+          message: "Productos eliminado con éxito",
+          carrito: response,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message, line: err.line });
+    }
+  };
+}

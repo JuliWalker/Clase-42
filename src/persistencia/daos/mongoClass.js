@@ -21,7 +21,7 @@ class MongoClass {
 
     async getOne(id) {
         try{
-            const one = await this.collection.findById(id)
+            let one = await this.collection.findById(id);
             return one
         }catch(err){
             throw new Error(err)

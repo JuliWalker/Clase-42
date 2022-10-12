@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
+    "mon": "nodemon ./src/server.js",
     "testHttp": "node ./test/httpTests.js",
     "testAxios": "node ./test/axiosTests.js",
     "testMocha": "node node_modules/mocha/bin/mocha.js",

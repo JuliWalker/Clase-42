@@ -76,3 +76,5 @@ try {
 // Agregar a las views las funcionalidades para cargar y ver el carrito.
 
 // agregar la parte del cart con la logica que subio Laura para leer desde ID todo el producto. 
+
+// revisar como agregar las cantidades al cart!
