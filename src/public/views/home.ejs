@@ -15,9 +15,10 @@
             <h1 class="is-size-2">💟 Bienvenid@ <%=nombre%></h1>
         </div>
         <button class="button is-danger mt-3" onclick="location.href='/api/users/logout'">Logout</button>
+        <button class="button is-primary mt-3" onclick="location.href='/api/chat'">Chat</button>
     </div>
     <div class="container mt-6">
-    <h1>Acá verás el contenido de la página</h1>
+    <h1>Nuestros productos:</h1>
     <%- include('./partials/list.ejs') %>
    </div>
 </body>

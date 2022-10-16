@@ -1,9 +1,7 @@
-// import ProductsFactory from "../persistencia/Factory/productsFactory.js";
 import { MongoDBCarritos } from "../persistencia/daos/carts/mongoDBCarts.js";
 
 export default class CartsServices {
   constructor() {
-    // this.ProductsDao = new ProductsFactory.getDao()
     this.CartsDao = new MongoDBCarritos();
   }
 
@@ -78,4 +76,14 @@ export default class CartsServices {
       throw new Error("error: ", error);
     }
   }
+
+  async deleteCart(id) {
+    try {
+      const deletedCart = await this.CartsDao.delete(id);
+      return deletedCart;
+    } catch (error) {
+      throw new Error("error: ", error);
+    }
+  }
+
 }

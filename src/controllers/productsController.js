@@ -8,14 +8,12 @@ export default class ProductsController{
     }
 
     getProducts = async(req,res)=>{
-        try {
-            // const usuario = await this.servicesUser.getOne(req.session.passport.user)
+        try {       
             const allProducts = await this.servicesProducts.getAll()
-            res.send(allProducts)
-            // res.status(200).render("home", { nombre: usuario.nombre, products: allProducts });
+            //res.send(allProducts)
+            res.status(200).render("home", { nombre: req.session.user.nombre, products: allProducts });
         } catch (error) {
-            console.log(error)
-            res.send(error)
+            res.status(500).send(error)
         }    
     };
 
@@ -33,28 +31,28 @@ export default class ProductsController{
         try {
             const obj = req.body
             const createProduct = await this.servicesProducts.saveNew(obj)
-            res.json(createProduct)
+            res.status(200).json(createProduct)
         } catch (err) {
-            res.json({message: err.message});
+            res.status(500).json({message: err.message});
         }
     };
 
     updateProduct = async(req,res)=>{
         try{
             const productoActualizado = await this.servicesProducts.update(req.params.id, req.body);
-            res.json({
+            res.status(200).json({
                 message: 'Producto actualizado correctamente',
                 id: productoActualizado._id
                 });
         }catch (err){
-            res.json({message: err.message});
+            res.status(500).json({message: err.message});
         }
     };
 
     deleteProduct = async(req,res)=>{
         try{
             const productoBorrado = await this.servicesProducts.delete(req.params.id);
-            res.json({
+            res.status(200).json({
                 message: 'Producto borrado correctamente',
                 id: productoBorrado._id
                 });

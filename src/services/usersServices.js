@@ -1,9 +1,7 @@
-// import UsersFactory from "../persistencia/Factory/usersFactory.js";
 import { MongoDBUsers } from '../persistencia/daos/users/usersDao.js'
 
 export default class UsersServices{
     constructor(){
-        // this.UsersDao = new UsersFactory.getDao()
         this.UsersDao = new MongoDBUsers()
     }
 
@@ -65,7 +63,6 @@ export default class UsersServices{
 
     async getByMail(mail) {
         try{
-            console.log(mail)
             const user = await this.UsersDao.getByMail(mail)
             return user
         }catch(err){

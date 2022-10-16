@@ -1,6 +1,5 @@
-import passport from "passport";
 import { Router } from "express";
-import isAuth from '../utils/middleware/isAuth.js'
+// import isAuth from '../utils/middleware/isAuth.js'
 import UsersController from "../controllers/usersControllers.js";
 
 const router = Router();
@@ -10,25 +9,19 @@ const controllerUser = new UsersController()
 /* Login */
 
 router.get("/login", controllerUser.getLogin);
-router.post("/login",passport.authenticate('login',{
-    failureRedirect:'/api/users/errorLogin',
-    successRedirect:'/api/productos'
-})) 
+router.post("/login", controllerUser.postlogin) 
 router.get("/errorLogin", controllerUser.errorLogin);
 
 /* Registro */
 
 router.get("/registro", controllerUser.getRegistro);
-router.post("/registro",passport.authenticate('registro',{
-    failureRedirect:'/api/users/errorRegistro',
-    successRedirect:'/api/users/mailRegistro'
-}))
+router.post("/registro", controllerUser.postRegistro);
 router.get("/errorRegistro", controllerUser.errorRegistro);
-router.get('/mailRegistro', isAuth, controllerUser.mailRegistro);
+router.get('/mailRegistro', controllerUser.mailRegistro);
 
 /* Logout */
 
-router.get("/logout", isAuth, controllerUser.logout);
+router.get("/logout", controllerUser.logout);
 
 
 export default router;

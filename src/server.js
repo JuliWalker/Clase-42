@@ -2,14 +2,25 @@ import express  from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import 'dotenv/config'
-import passport from "passport";
-import './utils/passport/local.js'
 import morgan from "morgan";
 import indexRouter from './routes/indexRoutes.js';
 import os from "os";
 import cluster from "cluster";
+import {dirname} from 'path'
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+import http from "http";
+import { Server } from "socket.io";
+import websocketConfig from "./utils/websocketConfig/websocketConfig.js";
 
 const app = express();
+const httpServer = http.createServer(app);
+const io = new Server(httpServer);
+
+
+// Variables de configuracion:
+
 const PORT = process.env.PORT || 8080
 const MODO = process.env.MODO || "fork";
 const nroCPUs = os.cpus().length;
@@ -32,6 +43,7 @@ if (cluster.isPrimary && MODO === "cluster") {
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(session(
     {
         secret: 'secret',
@@ -43,12 +55,10 @@ app.use(session(
             })
     }
 ));
-app.use(passport.initialize())
-app.use(passport.session())
 
 
 /** Views */
-app.set('views', 'src/views');
+app.set('views', __dirname + '/public/views');
 app.set('view engine', 'ejs');
 
 
@@ -57,6 +67,10 @@ app.use('/api', indexRouter);
 app.get("/", (req, res) => {
   res.redirect("/api");
 });
+
+
+/** websockets */
+websocketConfig(io);
 
 
 /** Server */
@@ -70,11 +84,17 @@ try {
 }
 
 
-// Reemplazar algunos loggers con los loggers vistos en clase
-// agregar la parte de soket io
-// Agregar al formulario de carga de usuarios lo de subir imagenes
-// Agregar a las views las funcionalidades para cargar y ver el carrito.
+// chat en websocket - en ruta /chat y /chat/:email para ver solo sus mensajes. -- Necesito solucionar el problema de los scripts
 
-// agregar la parte del cart con la logica que subio Laura para leer desde ID todo el producto. 
+// Agregar fecha-hora y mail de usuario al carrito y estado con default en "generada"}
 
-// revisar como agregar las cantidades al cart!
+// mejorar el manejo de errores del formulario de registro. No aceptar campos
+
+// agregar una ruta delete carrito - Listo, falta probar
+// Actualizar todos los res.status  -- Listo, falta probar
+// Revisar los llamados de persistencia con el uso de factory y DTO -- Listo, falta probar
+
+// Borrar todos los comentarios que no se usan e intentar documentar la API.
+
+// Tiempo de session configurable y otros paramentros como el puerto tambien.
+

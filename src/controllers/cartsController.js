@@ -102,4 +102,18 @@ export default class CartsController {
       res.status(500).json({ message: err.message, line: err.line });
     }
   };
+
+  deleteCart = async (req, res) => {
+    try {
+      const carritoBorrado = await this.serviceCarts.deleteCart(req.params.id);
+      carritoBorrado
+      ? res.status(200).json(carritoBorrado)
+      : res
+          .status(404)
+          .json({ message: "Carrito no encontrado. id: " + req.params.id });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
 }
