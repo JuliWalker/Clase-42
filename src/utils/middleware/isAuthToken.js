@@ -5,7 +5,6 @@ const PRIVATE_KEY = process.env.JWT_PRIVATE_KEY;
 
 export default function (req, res, next) {
   const authHeader = req.get('authorization');
-  // const authHeader = req.headers.authorization;
   let token = ""
   if (authHeader && authHeader.toLowerCase().startsWith('bearer')) {
     token = authHeader.split(' ')[1];

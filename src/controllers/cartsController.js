@@ -107,7 +107,7 @@ export default class CartsController {
     try {
       const carritoBorrado = await this.serviceCarts.deleteCart(req.params.id);
       carritoBorrado
-      ? res.status(200).json(carritoBorrado)
+      ? res.status(200).json({ message: "carrito borrado con exito", carritoBorrado })
       : res
           .status(404)
           .json({ message: "Carrito no encontrado. id: " + req.params.id });

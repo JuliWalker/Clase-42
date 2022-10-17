@@ -86,13 +86,7 @@ try {
 
 // chat en websocket - en ruta /chat y /chat/:email para ver solo sus mensajes. -- Necesito solucionar el problema de los scripts
 
-// Agregar fecha-hora y mail de usuario al carrito y estado con default en "generada"}
-
 // mejorar el manejo de errores del formulario de registro. No aceptar campos
-
-// agregar una ruta delete carrito - Listo, falta probar
-// Actualizar todos los res.status  -- Listo, falta probar
-// Revisar los llamados de persistencia con el uso de factory y DTO -- Listo, falta probar
 
 // Borrar todos los comentarios que no se usan e intentar documentar la API.
 

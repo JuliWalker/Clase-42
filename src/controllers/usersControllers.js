@@ -42,7 +42,7 @@ export default class UsersController {
       }
       req.session.user = user;
       const token = await generateToken(user);
-      // pongo esta logica para usar las vistas:
+      // pongo esta logica para usar las vistas en EJS:
       console.log(token)
       res.status(200).redirect('/api/productos') 
       // pero esto es lo que le deberia pasar al fron cuando lo tengamos creado:

@@ -11,6 +11,7 @@ router.get('/:id/productos', controllerCarts.getProductsInCart)
 router.post('/', controllerCarts.saveCart)
 router.post('/:id/productos', controllerCarts.addProductToCart)
 router.delete('/:id/productos/:productoId', controllerCarts.deleteProductInCart)
+router.delete('/:id', controllerCarts.deleteCart)
 
 
 export default router;
