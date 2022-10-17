@@ -108,7 +108,7 @@ Guarda un nuevo productos.
 >   {
 >   "nombre": nombre del producto, 
 >   "descripcion": descripción del producto,
->   "codigo": codigo del producto (no el ID, seria para el trackeo comercial)
+>   "codigo": codigo del producto (no el ID, el de tracking del comercio)
 >   "thumbnail": URL de la imágen lel producto, 
 >   "price": precio
 >   "stock": stock
@@ -116,113 +116,102 @@ Guarda un nuevo productos.
 
 ### GET: /api/productos/id del producto
 
-
-
 Nos devuelve el producto con el ID enviado por params
 
-### POST: /productos/
-
-Guarda un nuevo producto
-
-**Datos requeridos:**
-
-> { "name": nombre del producto, "description": descripción del
-> producto, "thumbnail": URL de la imágen lel producto, "price": precio
-> del producto, "category": categoria del producto }
-
-### PUT: /productos/id del producto
+### PUT: /api/productos/id del producto
 
 Actualiza un producto
 
 **Datos requeridos:**
 
-> { "name": nombre del producto, "description": descripción del
-> producto, "thumbnail": URL de la imágen lel producto, "price": precio
-> del producto, "category": categoria del producto }
+>   {
+>   "nombre": nombre del producto, 
+>   "descripcion": descripción del producto,
+>   "codigo": codigo del producto (no el ID, el de tracking del comercio)
+>   "thumbnail": URL de la imágen lel producto, 
+>   "price": precio
+>   "stock": stock
+>   }
 
 ### DELETE: /productos/id del producto
 
-Elimina un producto por su ID
+Elimina un producto con el ID enviado por params
 
-### POST: /carrito
+
+## Rutas de carritos
+
+las rutas de esta seccion no tienen creadas una vista en EJS, por lo tanto hay que usarlas desde Insomnia o Postman 
+**Recordar enviar el Token de validacion**
+
+### GET: /api/carritos
+
+Muestra todos los carritos guardados
+
+### POST: /api/carritos
 
 Crea un carrito de compras
 
 **Datos requeridos:**
 
-> { "email": email del usuario, "adress": dirección de entrega del producto }
+>   {
+>   "productos": es un array de productos con todos los datos del producto mas la cantidad, 
+>   "email": email del comprador,
+>   "direccion": direccion de entrega
+>   }
 
-### GET: /carrito
+**Tipo de objeto del array de productos:**
 
-Nos muestra todos los carritos de compra
-
-### GET: /carrito/id del carrito
-
-Nos muestra el carrito según su ID
-
-### DELETE: /carrito/id del carrito
-
-Elimina un carrito según su Id
-
-### POST: /carrito/id del carrito/productos/id del producto
-
-Agrega un producto al carrito según el id del carrito y del producto
-
-**Datos requeridos:**
-
-> { "quantity": cantidades del producto agregar }
-
-### PUT: /carrito/id del carrito/productos/id del producto
-
-Actualiza un producto al carrito según el id del carrito y del producto
-
-**Datos requeridos:**
-
-> { "quantity": cantidad del producto actualizada }
-
-### DELETE: /carrito/id del carrito/productos/id del producto
-
-Elimina un producto del carrito según el id del carrito y del producto
-
-### DELETE: /carrito/id del carrito/productos
-
-Elimina todos los productos del carrito según el id del carrito
+>   {
+>   "nombre": nombre del producto, 
+>   "descripcion": descripción del producto,
+>   "codigo": codigo del producto (no el ID, el de tracking del comercio)
+>   "thumbnail": URL de la imágen lel producto, 
+>   "price": precio
+>   "stock": stock (opcional)
+>   "cantidad": cantidad de items a comprar
+>   }
 
 
-### POST: /ordenes/id del carrito
-Crea una orden de compra segun el id del carrito con el email del usuario logeado y el detalle de los productos que fueron comprados, además del precio total de la compra. Una vez creada la orden, se borra el carrito de compras.
+### GET: /api/carritos/id del carrito
 
+Muestra el carrito del ID enviado por params
 
-### GET: /ordenes
+### DELETE: /api/carritos/id del carrito
 
-Nos muestra todas la ordenes de compra generadas
+Elimina un carrito del ID enviado por params
 
-### GET: /ordenes/num de orden
+### GET: /api/carritos/id del carrito/productos
 
-Nos muestra la orden de compra según el número de la orden
+Muestra los productos del carrito del ID enviado por params
 
-### DELETE: /ordenes/num de orden
+### POST: /api/carritos/id del carrito/productos
 
-Elimina la orden de compra según el número de la orden
+Agrega 1 unidad del producto enviado por body dentro del carrito con el ID enviado por params
+
+**Objeto producto del body:**
+
+>   {
+>   "nombre": nombre del producto, 
+>   "descripcion": descripción del producto,
+>   "codigo": codigo del producto (no el ID, el de tracking del comercio)
+>   "thumbnail": URL de la imágen lel producto, 
+>   "price": precio
+>   "stock": stock (opcional)
+>   "cantidad": cantidad de items a comprar
+>   }
+
+### DELETE: /api/carritos/id del carrito/productos/id del producto
+
+Elimina un producto del carrito siguiendo el id del carrito y del producto pasados por params
+
+## Rutas de carritos
+
+por ahora no logro hacer que corran los scripts en EJS y esta seccion no esta probada.
 
 ### GET: /chat
 
 Nos muestra todos los mensajes del chat
 
-### POST: /chat
+### GET: /chat/email del usuario
 
-Guarda un mensaje del chat
-
-**Datos requeridos:**
-
-> { "email": usuario,
-> "user": las opciones son usuario o sistema,
-> body: mensaje que envia el usuario 
-    }
-
-### DELETE: /chat
-
-Elimina todos losmensajes del chat
-
----
-El proyecto cuenta con 2 vistas cuando vamos a la ruta principal del mismo nos lleva a **/auth/login** . Al hacer login nos lleva a la ruta **/mensajes** donde se encuentra el chat,  una vez que estemos logeados, podemos enviar y recibir mensajes
+Nos muestra todos los mensajes del chat correpondientes a ese usuario

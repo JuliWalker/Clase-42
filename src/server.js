@@ -86,9 +86,8 @@ try {
 
 // chat en websocket - en ruta /chat y /chat/:email para ver solo sus mensajes. -- Necesito solucionar el problema de los scripts
 
+// agregar email y direccion de entrega al carrito.
+
 // mejorar el manejo de errores del formulario de registro. No aceptar campos
 
 // Borrar todos los comentarios que no se usan e intentar documentar la API.
-
-// Tiempo de session configurable y otros paramentros como el puerto tambien.
-
