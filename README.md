@@ -5,10 +5,10 @@
 
 ## Variables de Entorno
  - **PORT** - Puerto que utilizara nuestro servidor
- - **JWT_PRIVATE_KEY** - Clave de la firma de nuestro Token*emphasized text*
+ - **JWT_PRIVATE_KEY** - Clave de la firma de nuestro Token
  - **USER_ETHEREAL** - Usuario de nuestro servicio mail
  - **PASS_ETHEREAL** - Password de nuestro servicio mail
- - **MODO** - Elegir si corremos el servidor en modo FORK o CLUSTER / **CLUSTER** = correr en modo cluster con 8 nucleos- **FORK** = correr en modo FORK
+ - **MODO** - Elegir si corremos el servidor en modo FORK o CLUSTER
  - **DB_MONGO** - Dirección que nos pasa MONGO DB para conectarnos desde NODE
  
 ### Para realizar el proyecto se utilizaron las siguientes técnologias
@@ -84,25 +84,41 @@ Ruta creada para renderizar una vista de error en caso de que el usuario y la co
 Ruta creada para confirmar al usuario que la session fue terminada correctamente.
 
 
-## Endpoints Protegidos (Enviar Token)
+## Endpoints Protegidos (Requieren Token)
 
+Como enviar un token desde Insomnia o Postman?
+Completar la seccion Headers con:
+**Header: authorization**
+**Value: "bearer" + " " + token**
 
 ## Rutas de productos
 
+Salvo la ruta get products, las rutas de esta seccion no tienen creadas una vista en EJS, por lo tanto hay que usarlas desde Insomnia o Postman 
+
+### GET:  /api/productos
+
+Esta es la unica ruta que esta armada con EJS, nos muestra tarjetas con la foto e información de los distintos productos cargados.
+
+### POST: /productos/
+
+Guarda un nuevo productos.
+
+**Datos requeridos:**
+
+>   {
+>   "nombre": nombre del producto, 
+>   "descripcion": descripción del producto,
+>   "codigo": codigo del producto (no el ID, seria para el trackeo comercial)
+>   "thumbnail": URL de la imágen lel producto, 
+>   "price": precio
+>   "stock": stock
+>   }
+
+### GET: /api/productos/id del producto
 
 
 
-
-
-
-### GET:  /productos
-
-Muestra todos los productos
-
-
-### GET: /productos/id del producto
-
-Nos muestra el producto según su ID
+Nos devuelve el producto con el ID enviado por params
 
 ### POST: /productos/
 
